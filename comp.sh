@@ -20,10 +20,37 @@ else
 	exit 1
 fi
 
-if ! [ $TIME -eq $TIME ] 2>/dev/null || [ $TIME -ge 60 ] 2>/dev/null; then
-	pkshot_log_param 1 $TIME
+if ! [ $TIME ] || ! [ $FORMAT ]
+
+if ! [ $TIME -eq $TIME ] 2>/dev/null || [ $TIME -ge 60 ]; then
+	pkshot_log_param 1 
 	exit 1
 fi
 
-if ! [ "$FORMAT" = "png" ] && ! [ "$TIME" = "jpg" ]; then
-	pkshot_log_param 2 $FORMAT
+if ! [ "$FORMAT" = "png" ] && ! [ "$FORMAT" = "jpg" ]; then
+	pkshot_log_param 2 
+	exit 1
+fi 
+
+if [ "$FORMAT" = "jpg" ] && ! [ "$JPG_COMPRESSION_LEVEL" ] ; then
+	pkshot_log_param 3 
+	exit 1
+fi
+
+if ! [ "$JPG_COMPRESSION_LEVEL" -eq "$JPG_COMPRESSION_LEVEL" ] || ! $( [ "$JPG_COMPRESSION_LEVEL" -ge 50 ] && [ "$JPG_COMPRESSION_LEVEL" -le 100 ] ); then
+	pkshot_log_param 4
+	exit 1
+fi
+
+if [ $SCREENSHOTS_OE ] && ! [[ $SCREENSHOTS_OE = =~ ^([0-9]{1,3}\.){3}[0-9]{1,3}$ ]]; then
+	pkshot_log_param 5	
+	exit 1
+fi
+
+if ! [ -d $SCREENSHOTS_DIRECTORY ]; then
+	pkshot_log_param 6
+	exit 1
+fi
+
+if ! [  ]
+
