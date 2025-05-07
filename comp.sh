@@ -15,12 +15,15 @@ fi
 if [ -f $CONF_FILE ] 2>/dev/null ; then
 	source $CONF_FILE
 else
-	cp ./template/pkshot_template.conf $CONF_FILE
+	cp ./templates/pkshot_template.conf $CONF_FILE
 	pkshot_log_missing_conf $CONF_FILE
 	exit 1
 fi
 
-if ! [ $TIME ] || ! [ $FORMAT ]
+if ! [ $TIME ] && ! [ $FORMAT ] && ! [ $SCREENSHOTS_DIRECTORY ] && ! [ $COMPRESSION_INTERVAL ]; then
+	pkshot_log_param_essential
+	exit 1
+fi
 
 if ! [ $TIME -eq $TIME ] 2>/dev/null || [ $TIME -ge 60 ]; then
 	pkshot_log_param 1 
@@ -51,6 +54,4 @@ if ! [ -d $SCREENSHOTS_DIRECTORY ]; then
 	pkshot_log_param 6
 	exit 1
 fi
-
-if ! [  ]
 
