@@ -21,7 +21,7 @@ else
 fi
 
 if ! [ $TIME ] && ! [ $FORMAT ] && ! [ $SCREENSHOTS_DIRECTORY ] && ! [ $COMPRESSION_INTERVAL ]; then
-	pkshot_log_param_essential
+	pkshot_log_param_compulsory
 	exit 1
 fi
 
