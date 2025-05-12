@@ -20,7 +20,7 @@ pkshot_log_missing_conf(){
 } 
 
 pkshot_log_param_compulsory(){
-	echo "$(line_start 2) One of the compulsory variables is not found or not defined" >> $LOG_FILE
+	echo "$(line_start 2) One of the compulsory variables is not found, not defined or with no value." >> $LOG_FILE
 }
 
 pkshot_log_param(){	
@@ -33,16 +33,16 @@ pkshot_log_param(){
 			"$(line_start 2) The \$FORMAT variable is *not* set to one of the valid values, please check the pkshot.conf file." >> $LOG_FILE
 			;;
 		3)
-			"$(line_start 2) The \$TIME variable is not a number or is greater than 60 seconds" >> $LOG_FILE
+			"$(line_start 2) As the \$FORMAT variable is set to \"jpg\", the \$JPG_COMPRESSION_LEVEL variable must be set, please check the pkshot.conf file." >> $LOG_FILE
 			;;
 		4)
-			"$(line_start 2) The \$TIME variable is not a number or is greater than 60 seconds" >> $LOG_FILE
+			"$(line_start 2) The \$JPG_COMPRESSION_LEVEL variable is not a number or is not between the range of values, please check the pkshot.conf file." >> $LOG_FILE
 			;;
 		5)
-			"$(line_start 2) The \$TIME variable is not a number or is greater than 60 seconds" >> $LOG_FILE
+			"$(line_start 2) The \$SCREENSHOTS_OE variable value does not match an IP valid format, please check the pkshot.conf file." >> $LOG_FILE
 			;;
 		6)
-			"$(line_start 2) The \$TIME variable is not a number or is greater than 60 seconds" >> $LOG_FILE
+			"$(line_start 2) $2 is not accesible or it is not a directory." >> $LOG_FILE
 			;;
 	esac
 }

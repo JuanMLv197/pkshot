@@ -51,7 +51,10 @@ if [ $SCREENSHOTS_OE ] && ! [[ $SCREENSHOTS_OE = =~ ^([0-9]{1,3}\.){3}[0-9]{1,3}
 fi
 
 if ! [ -d $SCREENSHOTS_DIRECTORY ]; then
-	pkshot_log_param 6
+	pkshot_log_param 6 $SCREENSHOTS_DIRECTORY
 	exit 1
 fi
 
+if ! [ $COMPRESSION_INTERVAL -eq $COMPRESSION_INTERVAL ] 2>/dev/null || [ $COMPRESSION_INTERVAL -ge 60 ]; then
+	pkshot_log_param 7 
+exit 1
