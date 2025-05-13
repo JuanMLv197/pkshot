@@ -1,6 +1,6 @@
 ##- Terminar las comprobaciones previas y de parámetros en comp.sh##
 ##- Añadir y hacer las funciones de escribir de los parámetros en log_write.sh##
-- Crear fichero de funciones para las capturas en bin
+##- Crear fichero de funciones para las capturas en lib##
 - Crear fichero de funciones para la compresión
 - Crear fichero de funciones para oe (no prioritario)
 - Añadir al principio de todos los ficheros la plantilla de fichero ¡¡IMPORTANTE!!

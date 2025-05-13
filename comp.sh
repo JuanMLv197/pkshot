@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ./bin/log_write.sh
+source ./lib/log_write.sh
 source ./pkshot.conf
 
 LOG_FILE=/var/log/pkshot.log
@@ -30,7 +30,7 @@ if ! [ $TIME -eq $TIME ] 2>/dev/null || [ $TIME -ge 60 ]; then
 	exit 1
 fi
 
-if ! [ "$FORMAT" = "png" ] && ! [ "$FORMAT" = "jpg" ]; then
+if ! [ "$FORMAT" = "png" ] && ! [ "$FORMAT" = "jpg" ] && ! [ "$FORMAT" = "xwd" ]; then
 	pkshot_log_param 2 
 	exit 1
 fi 
