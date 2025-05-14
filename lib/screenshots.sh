@@ -1,13 +1,13 @@
 #!/bin/bash
 
-source ../pkshot.conf
-source ./log_write.sh
+source ./pkshot.conf
+source ./lib/log_write.sh
 
 screenshot_name(){
 	if [ $1 -eq 1 ]; then
-		echo "$(line_start 3)_$(w-oshu)_$(hostn 1)_$(hostn 2)"
+		echo "$(line_start 3)_$(w -oshu | awk -F " " '{print $1}' | head -1)_$HOSTNAME"
 	elif [ $1 -eq 2 ]; then
-		echo "$(line_start 3)_$(w-oshu)_$(hostn 1)_$(hostn 2)_$JPG_COMPRESSION_LEVEL"
+		echo "$(line_start 3)_$(w -oshu | awk -F " " '{print $1}' | head -1)_${HOSTNAME}_$JPG_COMPRESSION_LEVEL"
 	fi
 }
 
