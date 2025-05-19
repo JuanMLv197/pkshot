@@ -1,9 +1,14 @@
 #!/bin/bash
 
-source ./pkshot.conf
-source ./bin/comp.sh
-source ./lib/log_write.sh
-source ./lib/screenshots.sh
+
+GRAPH_USER=$(w -oshu | xargs | cut -f1 -d" ")
+sudo -u "$GRAPH_USER" DISPLAY=:0 xhost +SI:localuser:root
+export XAUTHORITY="/home/$GRAPH_USER/.Xauthority"
+
+source /home/juan/pkshot/pkshot.conf
+source /home/juan/pkshot/bin/comp.sh
+source /home/juan/pkshot/lib/log_write.sh
+source /home/juan/pkshot/lib/screenshots.sh
 
 LIFETIME_wanted_secs=$(( $LIFETIME * 60 ))
 LIFETIME_current_secs=0
@@ -16,10 +21,15 @@ elif [ "$FORMAT" = "jpg" ]; then
 	func="take_jpg"
 fi
 
-while [ $LIFETIME_current_secs -lt $LIFETIME_wanted_secs ]; do
+while true; do
+	if [ $(($LIFETIME_current_secs + $SCREENSHOT_INTERVAL )) -gt $LIFETIME_wanted_secs ]; then
+		break 
+	fi
 	$func
 	LIFETIME_current_secs=$(( $LIFETIME_current_secs + $SCREENSHOT_INTERVAL))
 	sleep $SCREENSHOT_INTERVAL
 done
 
+pkshot_log_finish
 
+sudo -u "$GRAPH_USER" DISPLAY=:0 xhost -SI:localuser:root

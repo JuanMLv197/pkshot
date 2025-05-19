@@ -1,7 +1,7 @@
 #!/bin/bash
 
-source ./pkshot.conf
-source ./lib/log_write.sh
+source /home/juan/pkshot/pkshot.conf
+source /home/juan/pkshot/lib/log_write.sh
 
 screenshot_name(){
 	if [ $1 -eq 1 ]; then
@@ -14,17 +14,17 @@ screenshot_name(){
 take_xwd(){
 	local path="$SCREENSHOTS_DIRECTORY/$(screenshot_name 1).xwd"
 	xwd -root > "$path"
-	pkshot_log_screenshot "$path"
+	pkshot_log_screenshot
 }
 
 take_png(){
 	local path="$SCREENSHOTS_DIRECTORY/$(screenshot_name 1).png"
 	import -window root "$path" 
-	pkshot_log_screenshot "$path"
+	pkshot_log_screenshot
 }
 
 take_jpg(){
 	local path="$SCREENSHOTS_DIRECTORY/$(screenshot_name 2).jpg"
 	import -window root -quality "$JPG_COMPRESSION_LEVEL" "$path" 
-	pkshot_log_screenshot "$path"
+	pkshot_log_screenshot
 }
