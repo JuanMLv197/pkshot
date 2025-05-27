@@ -22,42 +22,42 @@ fi
 
 if ! [ $LIFETIME ] && ! [ $SCREENSHOT_INTERVAL ] && ! [ $FORMAT ] && ! [ $SCREENSHOTS_DIRECTORY ]; then
 	pkshot_log_param_compulsory
-	exit 2
+	exit 1
 fi
 
 if ! [ $LIFETIME -eq $LIFETIME ]; then
 	pkshot_log_param 1
-	exit 3
+	exit 1
 fi
 
 if ! [ $SCREENSHOT_INTERVAL -eq $SCREENSHOT_INTERVAL ] 2>/dev/null || [ $SCREENSHOT_INTERVAL -ge 60 ]; then
 	pkshot_log_param 2 
-	exit 4
+	exit 1
 fi
 
 if ! [ "$FORMAT" = "png" ] && ! [ "$FORMAT" = "jpg" ] && ! [ "$FORMAT" = "xwd" ]; then
 	pkshot_log_param 3 
-	exit 5
+	exit 1
 fi 
 
 if [ "$FORMAT" = "jpg" ]; then
 	if ! [ "$JPG_COMPRESSION_LEVEL" ] ; then
 		pkshot_log_param 4 
-		exit 6
+		exit 1
 	fi
 	if ! [ "$JPG_COMPRESSION_LEVEL" -eq "$JPG_COMPRESSION_LEVEL" ] || ! $( [ "$JPG_COMPRESSION_LEVEL" -ge 50 ] && [ "$JPG_COMPRESSION_LEVEL" -le 100 ] ); then
 	pkshot_log_param 5
-	exit 7
+	exit 1
 	fi
 fi
 
 if [ $SCREENSHOTS_OE ] 2>/dev/null && ! [[ $SCREENSHOTS_OE =~ ^([0-9]{1,3}\.){3}[0-9]{1,3}$ ]]; then
 	pkshot_log_param 6	
-	exit 8
+	exit 1
 fi
 
 if ! [ -d $SCREENSHOTS_DIRECTORY ]; then
 	pkshot_log_param 7 $SCREENSHOTS_DIRECTORY
-	exit 9
+	exit 1
 fi
 

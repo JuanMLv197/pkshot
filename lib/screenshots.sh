@@ -5,9 +5,9 @@ source /home/juan/pkshot/lib/log_write.sh
 
 screenshot_name(){
 	if [ $1 -eq 1 ]; then
-		echo "$(line_start 3)_$(w -oshu | awk -F " " '{print $1}' | head -1)_$HOSTNAME"
+		echo "$(line_start 4)_$(w -oshu | awk -F " " '{print $1}' | head -1)_$HOSTNAME"
 	elif [ $1 -eq 2 ]; then
-		echo "$(line_start 3)_$(w -oshu | awk -F " " '{print $1}' | head -1)_${HOSTNAME}_$JPG_COMPRESSION_LEVEL"
+		echo "$(line_start 4)_$(w -oshu | awk -F " " '{print $1}' | head -1)_${HOSTNAME}_$JPG_COMPRESSION_LEVEL"
 	fi
 }
 
