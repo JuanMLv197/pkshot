@@ -10,8 +10,7 @@ source /home/juan/pkshot/bin/comp.sh
 source /home/juan/pkshot/lib/log_write.sh
 source /home/juan/pkshot/lib/screenshots.sh
 
-LIFETIME_wanted_secs=$(( $LIFETIME * 60 ))
-LIFETIME_current_secs=0
+LIFETIME_wanted_seconds=$(( $(date +%s) + ($LIFETIME * 60) ))
 
 if [ "$FORMAT" = "xwd" ]; then
 	func="take_xwd"
@@ -22,11 +21,10 @@ elif [ "$FORMAT" = "jpg" ]; then
 fi
 
 while true; do
-	if [ $(($LIFETIME_current_secs + $SCREENSHOT_INTERVAL )) -gt $LIFETIME_wanted_secs ]; then
+	if [[ $(date +%s) -gt $LIFETIME_wanted_seconds ]]; then
 		break 
 	fi
 	$func
-	LIFETIME_current_secs=$(( $LIFETIME_current_secs + $SCREENSHOT_INTERVAL))
 	sleep $SCREENSHOT_INTERVAL
 done
 
