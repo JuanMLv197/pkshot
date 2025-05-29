@@ -1,4 +1,9 @@
 #!/bin/bash
+#-------------------------PKSHOT-------------------------#
+# Author: Juan Martínez Liarte #-------------------------#
+# File Name: bin/vis.sh #--------------------------------#
+# Description: The script to visualize the screenshots #-#
+#--------------------------------------------------------#
 
 clear
 

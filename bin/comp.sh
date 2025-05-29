@@ -1,6 +1,12 @@
 #!/bin/bash
+#-------------------------PKSHOT-------------------------#
+# Author: Juan Martínez Liarte #-------------------------#
+# File Name: bin/comp.sh #-------------------------------#
+# Description: Previous comprobations for the script #---#
+#--------------------------------------------------------#
 
 source /home/juan/pkshot/lib/log_write.sh
+source /home/juan/pkshot/lib/overeth.sh
 
 LOG_FILE=/var/log/pkshot.log
 CONF_FILE=/home/juan/pkshot/pkshot.conf

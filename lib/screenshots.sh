@@ -1,4 +1,9 @@
 #!/bin/bash
+#-------------------------PKSHOT-------------------------#
+# Author: Juan Martínez Liarte #-------------------------#
+# File Name: lib/screenshots.sh #------------------------#                                                                                             
+# Description: Functions for taking the screenshots #----#                                                                                             
+#--------------------------------------------------------#
 
 source /home/juan/pkshot/pkshot.conf
 source /home/juan/pkshot/lib/log_write.sh

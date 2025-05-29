@@ -1,4 +1,9 @@
 #!/bin/bash
+#-------------------------PKSHOT-------------------------#
+# Author: Juan Martínez Liarte #-------------------------#
+# File Name: lib/log_write.sh #--------------------------#                                                                                             
+# Description: Functions for writting the log messages #-#                                                                                             
+#--------------------------------------------------------# 
 
 line_start(){
 	if [ $1 -eq 1 ]; then

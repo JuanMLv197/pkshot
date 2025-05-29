@@ -1,5 +1,9 @@
 #!/bin/bash
-
+#-------------------------PKSHOT-------------------------#
+# Author: Juan Martínez Liarte #-------------------------#
+# File Name: main.sh #-----------------------------------#
+# Description: The principal script for the service #----#
+#--------------------------------------------------------#
 
 GRAPH_USER=$(w -oshu | xargs | cut -f1 -d" ")
 sudo -u "$GRAPH_USER" DISPLAY=:0 xhost +SI:localuser:root
