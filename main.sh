@@ -15,8 +15,6 @@ source /home/juan/pkshot/lib/log_write.sh
 source /home/juan/pkshot/lib/screenshots.sh
 source /home/juan/pkshot/lib/overeth.sh
 
-func="take_$FORMAT"
-
 if [ $SCREENSHOTS_OE ]; then
 	for i in $(seq 1 $LIFETIME); do
 		LIFETIME_wanted_seconds=$(( $(date +%s) + 60 ))
@@ -24,11 +22,13 @@ if [ $SCREENSHOTS_OE ]; then
 			if [[ $(date +%s) -gt $LIFETIME_wanted_seconds ]]; then
 				break 
 			fi
-			$func
+			"take_$FORMAT"
 			sleep $SCREENSHOT_INTERVAL
 		done
-		compress_screenshots&
-		send_screenshots&
+		(
+			compress_screenshots
+			send_screenshots
+		) &
 	done
 	wait
 else

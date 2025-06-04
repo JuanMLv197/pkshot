@@ -36,11 +36,12 @@ compress_screenshots(){
 }
 
 send_screenshots(){
-	tgzname="$(ls -t /tmp/*.tgz | head -1)"
 	sshpass -p "$SCREENSHOTS_OE_passwd" scp -o StrictHostKeyChecking=no "$tgzname" "pkshot@${SCREENSHOTS_OE}:${SCREENSHOTS_DIRECTORY_OE}/."
-	com="tar xzf $SCREENSHOTS_DIRECTORY_OE/$(basename $tgzname) -C $SCREENSHOTS_DIRECTORY_OE; rm $SCREENSHOTS_DIRECTORY_OE/$(basename $tgzname)"
+	com="tar xzf $SCREENSHOTS_DIRECTORY_OE/$(basename $tgzname) -C $SCREENSHOTS_DIRECTORY_OE; rm $SCREENSHOTS_DIRECTORY_OE/*.tgz"
 	login_oe "$com"
 	unset tgzname
+	screenshots="$SCREENSHOTS_DIRECTORY/*.$FORMAT"
+	rm $screenshots $tgzname
 }
 
 
