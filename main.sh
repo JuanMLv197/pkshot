@@ -13,24 +13,34 @@ source /home/juan/pkshot/pkshot.conf
 source /home/juan/pkshot/bin/comp.sh
 source /home/juan/pkshot/lib/log_write.sh
 source /home/juan/pkshot/lib/screenshots.sh
+source /home/juan/pkshot/lib/overeth.sh
 
-LIFETIME_wanted_seconds=$(( $(date +%s) + ($LIFETIME * 60) ))
+func="take_$FORMAT"
 
-if [ "$FORMAT" = "xwd" ]; then
-	func="take_xwd"
-elif [ "$FORMAT" = "png" ]; then
-	func="take_png"
-elif [ "$FORMAT" = "jpg" ]; then
-	func="take_jpg"
+if [ $SCREENSHOTS_OE ]; then
+	for i in $(seq 1 $LIFETIME); do
+		LIFETIME_wanted_seconds=$(( $(date +%s) + 60 ))
+		while true; do
+			if [[ $(date +%s) -gt $LIFETIME_wanted_seconds ]]; then
+				break 
+			fi
+			$func
+			sleep $SCREENSHOT_INTERVAL
+		done
+		compress_screenshots&
+		send_screenshots&
+	done
+	wait
+else
+	while true; do
+		if [[ $(date +%s) -gt $LIFETIME_wanted_seconds ]]; then
+			break 
+		fi
+		$func
+		sleep $SCREENSHOT_INTERVAL
+	done
 fi
 
-while true; do
-	if [[ $(date +%s) -gt $LIFETIME_wanted_seconds ]]; then
-		break 
-	fi
-	$func
-	sleep $SCREENSHOT_INTERVAL
-done
 
 pkshot_log_finish
 
