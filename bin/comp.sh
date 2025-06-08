@@ -5,12 +5,11 @@
 # Description: Previous comprobations for the script #---#
 #--------------------------------------------------------#
 
-source /home/juan/pkshot/lib/log_write.sh
-source /home/juan/pkshot/lib/overeth.sh
+source /etc/pkshot/lib/log_write.sh
+source /etc/pkshot/lib/overeth.sh
 
 LOG_FILE=/var/log/pkshot.log
-CONF_FILE=/home/juan/pkshot/pkshot.conf
-#CONF_FILE=/etc/pkshot/pkshot.conf
+CONF_FILE=/etc/pkshot/pkshot.conf
 
 if ! [ -f $LOG_FILE ] 2>/dev/null; then
 	touch $LOG_FILE
@@ -20,7 +19,7 @@ fi
 if [ -f $CONF_FILE ] 2>/dev/null ; then
 	source $CONF_FILE
 else
-	cp ./templates/pkshot_template.conf $CONF_FILE
+	cp /etc/pkshot/templates/pkshot_template.conf $CONF_FILE
 	source $CONF_FILE
 	pkshot_log_missing_conf $CONF_FILE
 	exit 1
@@ -57,13 +56,27 @@ if [ "$FORMAT" = "jpg" ]; then
 	fi
 fi
 
-if [ $SCREENSHOTS_OE ] 2>/dev/null && ! [[ $SCREENSHOTS_OE =~ ^([0-9]{1,3}\.){3}[0-9]{1,3}$ ]]; then
-	pkshot_log_param 6	
+if ! [ -d $SCREENSHOTS_DIRECTORY ]; then
+	pkshot_log_param 6 $SCREENSHOTS_DIRECTORY
 	exit 1
 fi
 
-if ! [ -d $SCREENSHOTS_DIRECTORY ]; then
-	pkshot_log_param 7 $SCREENSHOTS_DIRECTORY
-	exit 1
+if [ $SCREENSHOTS_OE ] 2>/dev/null; then
+	if ! [[ $SCREENSHOTS_OE =~ ^([0-9]{1,3}\.){3}[0-9]{1,3}$ ]]; then
+		pkshot_log_oe 1	
+		exit 1
+	fi
+	if ! test_oe; then
+		pkshot_log_oe 2
+		exit 1
+	fi
+	if ! test_login; then
+		pkshot_log_oe 3
+		exit 1
+	fi
+	if ! test_remote_directories; then
+		pkshot_log_oe 4
+	fi
 fi
+
 

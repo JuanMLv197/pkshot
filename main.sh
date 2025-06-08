@@ -9,15 +9,15 @@ GRAPH_USER=$(w -oshu | xargs | cut -f1 -d" ")
 sudo -u "$GRAPH_USER" DISPLAY=:0 xhost +SI:localuser:root
 export XAUTHORITY="/home/$GRAPH_USER/.Xauthority"
 
-source /home/juan/pkshot/pkshot.conf
-source /home/juan/pkshot/bin/comp.sh
-source /home/juan/pkshot/lib/log_write.sh
-source /home/juan/pkshot/lib/screenshots.sh
-source /home/juan/pkshot/lib/overeth.sh
+source /etc/pkshot/pkshot.conf
+source /etc/pkshot/bin/comp.sh
+source /etc/pkshot/lib/log_write.sh
+source /etc/pkshot/lib/screenshots.sh
+source /etc/pkshot/lib/overeth.sh
 
 if [ $SCREENSHOTS_OE ]; then
 	for i in $(seq 1 $LIFETIME); do
-		LIFETIME_wanted_seconds=$(( $(date +%s) + 60 ))
+		LIFETIME_wanted_seconds=$(( $(date +%s) + 3600 ))
 		while true; do
 			if [[ $(date +%s) -gt $LIFETIME_wanted_seconds ]]; then
 				break 
@@ -32,13 +32,17 @@ if [ $SCREENSHOTS_OE ]; then
 	done
 	wait
 else
-	while true; do
-		if [[ $(date +%s) -gt $LIFETIME_wanted_seconds ]]; then
-			break 
-		fi
-		$func
-		sleep $SCREENSHOT_INTERVAL
+	for i in $(seq 1 $LIFETIME); do
+		LIFETIME_wanted_seconds=$(( $(date +%s) + 3600 ))
+		while true; do
+			if [[ $(date +%s) -gt $LIFETIME_wanted_seconds ]]; then
+				break 
+			fi
+			"take_$FORMAT"
+			sleep $SCREENSHOT_INTERVAL
+		done
 	done
+	wait
 fi
 
 

@@ -2,14 +2,14 @@
 Description=Transparent screen peeker, Pkshot
 After=graphical.target
 Wants=graphical.target
-ConditionPathExists=/home/juan/pkshot/main.sh
+ConditionPathExists=/etc/pkshot/main.sh
 
 [Service]
 StandardOutput=journal
 StandardError=journal
 Environment=DISPLAY=:0
-EnvironmentFile=-/home/juan/pkshot/pkshot.conf
-ExecStart=/home/juan/pkshot/main.sh
+EnvironmentFile=-/etc/pkshot/pkshot.conf
+ExecStart=/etc/pkshot/main.sh
 ExecReload=/bin/kill -HUP $MAINPID
 KillMode=process
 Restart=on-failure

@@ -5,8 +5,8 @@
 # Description: Functions for taking the screenshots #----#                                                                                             
 #--------------------------------------------------------#
 
-source /home/juan/pkshot/pkshot.conf
-source /home/juan/pkshot/lib/log_write.sh
+source /etc/pkshot/pkshot.conf
+source /etc/pkshot/lib/log_write.sh
 
 screenshot_name(){
 	if [ $1 -eq 1 ]; then
